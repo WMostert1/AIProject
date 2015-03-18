@@ -1,0 +1,73 @@
+﻿@model ArtificialIntelligenceProject1.Models.GameModel
+
+<script>
+    waitTurn();
+</script>
+
+@{
+    for (int y = 0; y < Model.coordinates.dimension; y++)
+    {
+
+        for (int x = 0; x < Model.coordinates.dimension; x++)
+        {
+            var block = Model.coordinates.get(x, y);
+
+            if (block.cell == null)
+            {
+                if (block.owner == -1)
+                {
+                    @Html.Raw("<div class='game_block' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                }
+                if (block.owner == 0)
+                {
+                    if (block.movableSpace == true)
+                    {
+                    @Html.Raw("<div class='game_block player-1-block movable' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                    }
+                    else { 
+                    @Html.Raw("<div class='game_block player-1-block' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                    }
+                }
+                if (block.owner == 1)
+                {
+                    if (block.movableSpace == true)
+                    {
+                        @Html.Raw("<div class='game_block player-2-block movable' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                    }
+                    else
+                    {
+                        @Html.Raw("<div class='game_block player-2-block' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                    }
+
+                }
+
+            }
+            else if (block.cell.player == 0)
+            {
+                if (block.selected == true)
+                {
+                     @Html.Raw("<div class='game_block player-1-cell selected' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                }
+
+                else { 
+                     @Html.Raw("<div class='game_block player-1-cell' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                }
+            }
+            else if (block.cell.player == 1)
+            {
+                if (block.selected == true)
+                {
+                    @Html.Raw("<div class='game_block player-2-cell selected' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                }
+                else
+                {
+                    @Html.Raw("<div class='game_block player-2-cell' id='x" + x.ToString() + "y" + y.ToString() + "'></div>");
+                }
+            }
+        }
+    }
+}
+
+<script>
+    setupBoard();
+</script>

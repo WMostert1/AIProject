@@ -1,0 +1,36 @@
+﻿@model ArtificialIntelligenceProject1.Models.GameModel
+@{
+    ViewBag.Title = "Game";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="logo">Cell Wars</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="status">@if (Model.turn.Equals(Model.player_id[0]))
+                                 {
+                                     @Html.Raw("Player 1's turn");
+                                 }
+                                 else
+                                 {
+                                     @Html.Raw("Player 2's turn");
+                                 }
+                </div>
+             </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div id="board_wrapper" class="col-md-12">
+        @Html.Partial("_Board", Model)
+    </div>
+</div>

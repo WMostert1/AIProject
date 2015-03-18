@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ArtificialIntelligenceProject1.Models.GameModel>
+
+@{
+    ViewBag.Title = "Lobby";
+}
+
+<h2>Game Lobby</h2>
+
+<p style="text-align:right">Welcome @ViewBag.alias</p>
+<hr/>
+@if (ViewBag.status != null) { 
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-danger" role="alert">@ViewBag.status</div>
+    </div>
+</div>
+}
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Open Games</h3>
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    @foreach (var game in Model)
+                    {
+                        if (game.player_2_id.Equals(""))
+                        {
+                            @Html.Raw("<a href='../Game/joinGame?id=" + game.id + "' class='list-group-item'>" + game.name + "</a>");
+                        }                     
+                    }
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <h3 class="panel-title">Create a new game</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="../Game/newGame">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label for="game_name_input">Game Name</label>
+                            <input type="text" class="form-control" id="game_name_input" placeholder="Banana tango" name="game_name" />
+                            <br />
+                            <label for="game_dimensions">Board Dimensions</label>
+                            <input type="number" class="form-control" id="game_dimensions" step="2" name="dimensions" value="10" min="10" />
+                            <label for="cells_starting_no_input">Number of Cells for a Player</label>
+                            <input type="number" class="form-control" id="cells_starting_number_input"  name="no_initial_cells" value="5" min="1" />
+                        </div>
+
+                        <div class="input-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="game_type" id="optionsRadios1" value="hh" checked>
+                                    Human vs Human
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="game_type" id="optionsRadios2" value="ha">
+                                    Human vs AI
+                                </label>
+                            </div>
+                            <div class="radio disabled">
+                                <label>
+                                    <input type="radio" name="game_type" id="optionsRadios3" value="aa">
+                                    AI vs AI
+                                </label>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <input type="submit" class="form-control" value="Create" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
